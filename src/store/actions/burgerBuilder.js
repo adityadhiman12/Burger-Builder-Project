@@ -3,14 +3,14 @@ import axios from "../../axios-order";
 
 export const addIngredient = (name) => {
   return {
-    type: actionTypes.ADD_INGREDIENTS,
+    type: actionTypes.ADD_INGREDIENT,
     ingredientName: name,
   };
 };
 
 export const removeIngredient = (name) => {
   return {
-    type: actionTypes.REMOVE_INGREDIENTS,
+    type: actionTypes.REMOVE_INGREDIENT,
     ingredientName: name,
   };
 };
@@ -32,8 +32,8 @@ export const initIngredients = () => {
   return (dispatch) => {
     axios
       .get("https://react-burger-project-ced99.firebaseio.com/ingredients.json")
-      .then((res) => {
-        dispatch(setIngredients(res.data));
+      .then((response) => {
+        dispatch(setIngredients(response.data));
       })
       .catch((error) => {
         dispatch(fetchIngredientsFailed());
