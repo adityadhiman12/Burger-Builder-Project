@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+
 import Modal from "../../components/UI/Modal/Modal";
 import Aux from "../Aux/Aux";
 
@@ -7,6 +8,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
     state = {
       error: null,
     };
+
     componentWillMount() {
       this.reqInterceptor = axios.interceptors.request.use((req) => {
         this.setState({ error: null });
@@ -15,9 +17,7 @@ const withErrorHandler = (WrappedComponent, axios) => {
       this.resInterceptor = axios.interceptors.response.use(
         (res) => res,
         (error) => {
-          this.setState({
-            error: error,
-          });
+          this.setState({ error: error });
         }
       );
     }
@@ -28,16 +28,15 @@ const withErrorHandler = (WrappedComponent, axios) => {
     }
 
     errorConfirmedHandler = () => {
-      this.setState({
-        error: null,
-      });
+      this.setState({ error: null });
     };
+
     render() {
       return (
         <Aux>
           <Modal
-            modalClosed={this.errorConfirmedHandler}
             show={this.state.error}
+            modalClosed={this.errorConfirmedHandler}
           >
             {this.state.error ? this.state.error.message : null}
           </Modal>
